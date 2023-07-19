@@ -2,26 +2,33 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 import { Entry, Feed } from '../../types/entry';
 import Podcast from '../../components/podcast/Podcast';
 import { Badge, EntriesContainer, InputContainer } from './Dashboard.styles';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { filterPodcast } from '../../utils/utils';
 import texts from './Dashboard.text';
 
-const Dashboard = () => {
+type Props = {
+	onSelect: (data: Feed) => void;
+}
+
+const Dashboard: React.FC<Props> = ({ onSelect }) => {
 	const { feed } = useLoaderData() as { feed: Feed[] };
 	const navigate = useNavigate();
-	const [entries, setEntries] = useState([]);
+	const [entries, setEntries] = useState<Feed[]>([]);
 	const onChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-		const filtered = feed.entry.filter(e => filterPodcast(value, e))
+		const filtered = feed.filter(f => filterPodcast(value, f))
 		setEntries(filtered);
 	};
 
 	useEffect(() => {
-		if (!feed?.entry) return;
-		setEntries(feed.entry);
+		if (!feed) return;
+		setEntries(feed);
 	}, [feed]);
-	console.log("feed.entry[0].id.attributes['im:id']", feed.entry[0].id.attributes['im:id'])
+	console.log("feed.entry[0].id.attributes['im:id']", feed[0].id)
 
-	const onClick = () => navigate(`/podcast/${feed.entry[0].id.attributes['im:id']}`)
+	const onClick = (feed: Feed) => () => {
+		onSelect(feed);
+		navigate(`/podcast/${feed.id}`)
+	}
 
 	return (
 		<>
@@ -30,7 +37,7 @@ const Dashboard = () => {
 				<input type="text" onChange={onChange} placeholder={texts.inputPlaceholder}></input>
 			</InputContainer>
 			<EntriesContainer>
-				{entries.map((e: Entry) => <Podcast onClick={onClick} key={e.id.label} entry={e} />)}
+				{entries.map((e) => <Podcast onClick={onClick(e)} key={e.id} entry={e} />)}
 			</EntriesContainer>
 		</>
 	)

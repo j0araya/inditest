@@ -1,20 +1,20 @@
-import { Entry } from "../../types/entry";
-import { AuthorText, Container, Content, PodcastImg, TitleText } from "./Podcast.style";
+import { Entry, Feed } from "../../types/entry";
+import { AuthorText, Container, Content, PodcastImg, TitleText } from "./Podcast.styles";
 
 interface Props {
-	entry: Entry;
+	entry: Feed;
 	key: string;
 	onClick: () => void;
 }
 
 const Podcast: React.FC<Props> = ({ entry, onClick }) => {
 	return (
-		<Container data-testId={entry.id.label} onClick={onClick}>
+		<Container data-testId={entry.id} onClick={onClick}>
 			<Content>
-				<PodcastImg src={entry['im:image'][0].label} />
+				<PodcastImg src={entry.img} />
 				<div>
-					<TitleText>{entry['im:name'].label}</TitleText>
-					<AuthorText>{entry['im:artist'].label} </AuthorText>
+					<TitleText>{entry.name}</TitleText>
+					<AuthorText>{entry.artist} </AuthorText>
 				</div>
 			</Content>
 		</Container>

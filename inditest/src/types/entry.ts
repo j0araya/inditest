@@ -2,11 +2,11 @@ export type Label = {
 	label: string;
 }
 
-export type Attributes = {
-	'im:id': string
+type Attributes = {
+	'im:id': string;
 }
 
-export type Id = {
+type Summary = {
 	attributes: Attributes
 }
 
@@ -14,11 +14,16 @@ export type Entry = {
 	'im:name': Label;
 	'im:artist': Label;
 	'im:image': Label[];
-	id: Label;
+	id: Summary;
+	summary: Label;
 }
 
-export type Feed = {
+export type FeedEntry = {
 	entry: Entry[];
+}
+
+export type ResponseFeed = {
+	feed: FeedEntry;
 }
 
 export type Chapter = {
@@ -30,9 +35,27 @@ export type Chapter = {
 
 export type Result = {
 	chapters: Chapter[];
+	artistName: string;
+	collectionName: string;
+	collectionViewUrl: string;
 }
 
 export type Podcast = {
 	results: Result[];
 	resultCount: number;
+}
+
+export type PodcastInfo = {
+	img: string;
+	title: string;
+	author: string;
+	description: string;
+}
+
+export type Feed = {
+	img: string;
+	name: string;
+	artist: string;
+	id: string;
+	description: string;
 }
