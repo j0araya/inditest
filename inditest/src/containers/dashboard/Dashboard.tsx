@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { filterPodcast } from '../../utils/utils';
 import texts from './Dashboard.text';
 
-
 const Dashboard = () => {
 	const { feed } = useLoaderData() as { feed: Feed[] };
 	const [entries, setEntries] = useState([]);

@@ -8,7 +8,7 @@ interface Props {
 
 const Podcast: React.FC<Props> = ({ entry }) => {
 	return (
-		<Container>
+		<Container data-testId={entry.id.label}>
 			<Content>
 				<PodcastImg src={entry['im:image'][0].label} />
 				<div>
