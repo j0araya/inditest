@@ -1,9 +1,10 @@
 import './App.css'
 import Header from './components/header/Header'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, useParams } from 'react-router-dom';
 // import Dashboard from './containers/dashboard/Dashboard';
-import { getPodcast } from './services/podcast.service';
+import { getPodcast, getPodcasts } from './services/podcast.service';
 import Dashboard from './containers/dashboard/Dashboard';
+import Podcast from './containers/podcast/Podcast';
 
 
 function App() {
@@ -11,7 +12,11 @@ function App() {
     {
       path: "/",
       element: <Dashboard />,
-      loader: getPodcast
+      loader: getPodcasts
+    },
+    {
+      path: "podcast/:podcastId",
+      element: <Podcast />,
     },
   ]);
 

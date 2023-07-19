@@ -4,11 +4,12 @@ import { AuthorText, Container, Content, PodcastImg, TitleText } from "./Podcast
 interface Props {
 	entry: Entry;
 	key: string;
+	onClick: () => void;
 }
 
-const Podcast: React.FC<Props> = ({ entry }) => {
+const Podcast: React.FC<Props> = ({ entry, onClick }) => {
 	return (
-		<Container data-testId={entry.id.label}>
+		<Container data-testId={entry.id.label} onClick={onClick}>
 			<Content>
 				<PodcastImg src={entry['im:image'][0].label} />
 				<div>
