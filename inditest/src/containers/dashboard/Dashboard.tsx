@@ -1,5 +1,5 @@
-import { useLoaderData, useNavigate } from 'react-router-dom';
-import { Entry, Feed } from '../../types/entry';
+import { useNavigate, useRouteLoaderData } from 'react-router-dom';
+import { Feed } from '../../types/entry';
 import Podcast from '../../components/podcast/Podcast';
 import { Badge, EntriesContainer, InputContainer } from './Dashboard.styles';
 import React, { useEffect, useState } from 'react';
@@ -8,10 +8,11 @@ import texts from './Dashboard.text';
 
 type Props = {
 	onSelect: (data: Feed) => void;
+	setIsLoading: (data: boolean) => void
 }
 
-const Dashboard: React.FC<Props> = ({ onSelect }) => {
-	const { feed } = useLoaderData() as { feed: Feed[] };
+const Dashboard: React.FC<Props> = ({ onSelect, setIsLoading }) => {
+	const { feed } = useRouteLoaderData('root') as { feed: Feed[] };
 	const navigate = useNavigate();
 	const [entries, setEntries] = useState<Feed[]>([]);
 	const onChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,17 +24,18 @@ const Dashboard: React.FC<Props> = ({ onSelect }) => {
 		if (!feed) return;
 		setEntries(feed);
 	}, [feed]);
-	console.log("feed.entry[0].id.attributes['im:id']", feed[0].id)
 
 	const onClick = (feed: Feed) => () => {
 		onSelect(feed);
+		localStorage.setItem('podcast', JSON.stringify(feed));
+		setIsLoading(true);
 		navigate(`/podcast/${feed.id}`)
 	}
 
 	return (
 		<>
 			<InputContainer>
-				<Badge>100</Badge>
+				<Badge>{feed.length}</Badge>
 				<input type="text" onChange={onChange} placeholder={texts.inputPlaceholder}></input>
 			</InputContainer>
 			<EntriesContainer>

@@ -31,6 +31,8 @@ export type Chapter = {
 	trackName: string;
 	releaseDate: string;
 	trackTimeMillis: number;
+	episodeUrl: string;
+	description: string;
 }
 
 export type Result = {
