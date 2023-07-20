@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getPodcast } from "../../services/podcast.service";
 import List from "../../components/list/List";
 import ListItem from "../../components/list-item/ListItem";
-import { Podcast, Feed, Chapter } from "../../types/entry";
+import { Feed, Chapter } from "../../types/entry";
 import { ContentCard, ContentList, Header, Layout } from "./Podcast.styles";
 import texts from './Podcast.text';
 import PodcastInfoComponent from "../../components/podcast-info/PodcastInfo";
@@ -14,14 +14,16 @@ type Props = {
 	setIsLoading: (data: boolean) => void;
 }
 
+const defaultPodcast = { img: '', artist: '', description: '', name: '', id: '' }
+
 const PodcastView: React.FC<Props> = ({ onSelect, podcast, setIsLoading }) => {
-	const [chapter, setChapters] = useState({ results: [] });
-	const [currentPodcast, setCurrentPodcast] = useState<Feed>({ results: [] });
+	const [chapter, setChapters] = useState<{ results: Chapter[], resultCount: number }>({ results: [], resultCount: 0 });
+	const [currentPodcast, setCurrentPodcast] = useState<Feed>(defaultPodcast);
 	const navigate = useNavigate();
 	const { podcastId } = useParams();
 	useEffect(() => {
 		if (!podcastId) navigate('/');
-		else getPodcast(podcastId).then((p: Podcast) => {
+		else getPodcast(podcastId).then((p: { results: Chapter[], resultCount: number }) => {
 			setIsLoading(false);
 			setChapters(p);
 		})
@@ -40,6 +42,7 @@ const PodcastView: React.FC<Props> = ({ onSelect, podcast, setIsLoading }) => {
 		setIsLoading(true);
 		navigate(`episode/${data.trackId}`)
 	}
+	console.log('chapter', chapter);
 	return (
 		<Layout>
 			<ContentCard>
@@ -49,7 +52,7 @@ const PodcastView: React.FC<Props> = ({ onSelect, podcast, setIsLoading }) => {
 			<ContentList>
 				<Header>{texts.episodes}{chapter.resultCount}</Header>
 				<List>
-					{chapter.results.map((c, i) => <ListItem key={c.trackId} background={i} chapter={c} onClick={onClick} />)}
+					{chapter.results.map((c: Chapter, i) => <ListItem key={c.trackId} background={i} chapter={c} onClick={onClick} />)}
 				</List>
 			</ContentList>
 		</Layout>

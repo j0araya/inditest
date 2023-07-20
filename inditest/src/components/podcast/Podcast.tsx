@@ -1,4 +1,4 @@
-import { Entry, Feed } from "../../types/entry";
+import { Feed } from "../../types/entry";
 import { AuthorText, Container, Content, PodcastImg, TitleText } from "./Podcast.styles";
 
 interface Props {

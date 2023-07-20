@@ -14,23 +14,31 @@ jest.mock("react-router-dom", () => ({
 
 describe('Dashboard view', () => {
 	it('Firs Load', async () => {
-		render(<Dashboard />, { wrapper: BrowserRouter });
+		const onSelect = jest.fn();
+		const setIsLoading = jest.fn();
+		render(<Dashboard onSelect={onSelect} setIsLoading={setIsLoading} />, { wrapper: BrowserRouter });
 		expect(screen.getByPlaceholderText(textDashboard.inputPlaceholder)).toBeDefined();
 	})
 
 	it('podcast Load', async () => {
-		render(<Dashboard />, { wrapper: BrowserRouter });
+		const onSelect = jest.fn();
+		const setIsLoading = jest.fn();
+		render(<Dashboard onSelect={onSelect} setIsLoading={setIsLoading} />, { wrapper: BrowserRouter });
 		expect(await screen.findByText(mockPodcasts.feed.entry[0]['im:name'].label)).toBeDefined();
 		expect(await screen.findByText(mockPodcasts.feed.entry[0]['im:artist'].label)).toBeDefined();
 	})
 
 	it('podcast Load', async () => {
-		render(<Dashboard />, { wrapper: BrowserRouter });
+		const onSelect = jest.fn();
+		const setIsLoading = jest.fn();
+		render(<Dashboard onSelect={onSelect} setIsLoading={setIsLoading} />, { wrapper: BrowserRouter });
 		expect(await screen.findByText(mockPodcasts.feed.entry[0]['im:artist'].label)).toBeDefined();
 	})
 
 	it('change input', async () => {
-		render(<Dashboard />, { wrapper: BrowserRouter });
+		const onSelect = jest.fn();
+		const setIsLoading = jest.fn();
+		render(<Dashboard onSelect={onSelect} setIsLoading={setIsLoading} />, { wrapper: BrowserRouter });
 		expect(await screen.findByText(mockPodcasts.feed.entry[0]['im:artist'].label)).toBeDefined();
 		const text = mockPodcasts.feed.entry[0]['im:name'].label;
 		const id = mockPodcasts.feed.entry[0].id.label;

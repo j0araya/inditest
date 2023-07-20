@@ -7,24 +7,28 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const proxy = 'https://api.allorigins.win/get?url=';
 
+const defaultFeed = {
+	img: '',
+	name: '',
+	artist: '',
+	id: '',
+	description: '',
+}
+
+const defaultChapter = {
+	trackId: '',
+	trackName: '',
+	releaseDate: '',
+	trackTimeMillis: 0,
+	episodeUrl: '',
+	description: '',
+}
+
 const ChapterComponent = ({ chapter, podcast }: { chapter: Chapter, podcast: Feed }) => {
 	const { podcastId, episodeId } = useParams();
 	const navigate = useNavigate();
-	const [currentPodcast, setCurrentPodcast] = useState<Feed>({
-		img: '',
-		name: '',
-		artist: '',
-		id: '',
-		description: '',
-	});
-	const [currentChapter, setCurrentChapter] = useState<Chapter>({
-		trackId: '',
-		trackName: '',
-		releaseDate: '',
-		trackTimeMillis: 0,
-		episodeUrl: '',
-		description: '',
-	});
+	const [currentPodcast, setCurrentPodcast] = useState<Feed>(defaultFeed);
+	const [currentChapter, setCurrentChapter] = useState<Chapter>(defaultChapter);
 
 	useEffect(() => {
 		if (podcast) setCurrentPodcast(podcast);

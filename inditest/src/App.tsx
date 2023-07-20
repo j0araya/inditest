@@ -1,14 +1,13 @@
 import './App.css'
 import Header from './components/header/Header'
-import { RouterProvider, createBrowserRouter, useFetcher, useNavigation } from 'react-router-dom';
-// import Dashboard from './containers/dashboard/Dashboard';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { getPodcasts } from './services/podcast.service';
 import Dashboard from './containers/dashboard/Dashboard';
 import Podcast from './containers/podcast/Podcast';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Chapter, Feed, ResponseFeed } from './types/entry';
 import { podcastsMapper } from './utils/utils';
-import ChapterComponent from './containers/chapter/chapter';
+import ChapterComponent from './containers/chapter/Chapter';
 import Layout from './containers/Layout';
 
 const defaultPodcast = { img: '', artist: '', description: '', name: '', id: '' }
