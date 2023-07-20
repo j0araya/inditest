@@ -42,7 +42,6 @@ const PodcastView: React.FC<Props> = ({ onSelect, podcast, setIsLoading }) => {
 		setIsLoading(true);
 		navigate(`episode/${data.trackId}`)
 	}
-	console.log('chapter', chapter);
 	return (
 		<Layout>
 			<ContentCard>

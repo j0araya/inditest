@@ -5,7 +5,6 @@ export const getPodcasts = async () => {
             throw new Error('Network response was not ok.')
         })
         .then(data => {
-            console.log(data)
             return data;
         });
 }
@@ -17,7 +16,6 @@ export const getPodcast = async (id: string) => {
             throw new Error('Network response was not ok.')
         })
         .then(data => {
-            console.log(data)
             return data;
         });
 }
