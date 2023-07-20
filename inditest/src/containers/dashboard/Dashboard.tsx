@@ -21,6 +21,7 @@ const Dashboard: React.FC<Props> = ({ onSelect, setIsLoading }) => {
 	};
 
 	useEffect(() => {
+		console.log('feed', feed);
 		if (!feed) return;
 		setEntries(feed);
 	}, [feed]);

@@ -9,7 +9,8 @@ const mockedUsedNavigate = mockPodcasts
 
 jest.mock("react-router-dom", () => ({
 	...(jest.requireActual("react-router-dom") as any),
-	useLoaderData: () => mockedUsedNavigate
+	useRouteLoaderData: () => mockedUsedNavigate,
+	useNavigate: () => jest.fn()
 }));
 
 describe('Dashboard view', () => {
